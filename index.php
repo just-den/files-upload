@@ -424,6 +424,8 @@ session_start();
                 this.input = this.form.querySelector('input[type=file]')
                 this.button = this.form.querySelector('input[type=submit]')
                 this.label = this.form.querySelector('.box').querySelector('span')
+                this.errorsInfo = document.querySelector('#alert-ajax-danger')
+                this.successInfo = document.querySelector('#alert-ajax-success')
 
                 this.load()
                 this.send()
@@ -439,6 +441,8 @@ session_start();
             send() {
                 this.form.addEventListener('submit', (e) => {
                     e.preventDefault()
+                    this.errorsInfo.innerHTML = ''
+                    this.successInfo.innerHTML = ''
                     const self = this
                     const formData = new FormData()
                     reactive.data.files.forEach((file, i) => formData.append(i, file))
@@ -460,13 +464,13 @@ session_start();
                             try {
                                 const result = JSON.parse(res.request.responseText)
                                 // console.log('result: ', result)
-                                if (result.errors) {
+                                if (result.errors && result.errors.length > 0) {
                                     const errors = result.errors.map(error => `<li>${error}</li>`).join('')
-                                    document.querySelector('#alert-ajax-danger').innerHTML = `<div class="alert alert-danger"><ul class="m-0">${errors}</ul></div>`
+                                    this.errorsInfo.innerHTML = `<div class="alert alert-danger"><ul class="m-0">${errors}</ul></div>`
                                 }
-                                if (result.success) {
+                                if (result.success && result.success.length > 0) {
                                     const success = result.success.map(success => `<li>${success}</li>`).join('')
-                                    document.querySelector('#alert-ajax-success').innerHTML = `<div class="alert alert-success"><ul class="m-0">${success}</ul></div>`
+                                    this.successInfo.innerHTML = `<div class="alert alert-success"><ul class="m-0">${success}</ul></div>`
                                 }
                                 this.input.value = null
                             } catch (error) {

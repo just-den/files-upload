@@ -50,7 +50,7 @@ abstract class Upload
     }
 
     // ПЕРЕИМЕНОВАНИЕ ДУБЛИКАТОВ
-    if (isset($args['rename_duplicates']) && $args['rename_duplicates'] === true) {
+    if (isset($args['rename_duplicates'])) {
       $this->rename_duplicates = $args['rename_duplicates'];
     }
 

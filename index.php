@@ -418,6 +418,7 @@ session_start();
 
             constructor() {
 
+                // https://ru.wikipedia.org/wiki/%D0%A1%D0%BF%D0%B8%D1%81%D0%BE%D0%BA_MIME-%D1%82%D0%B8%D0%BF%D0%BE%D0%B2
                 this.PERMITED_TYPES = ['application/pdf', 'image/jpeg', 'image/png']
 
                 this.form = document.querySelector('#ajax')
